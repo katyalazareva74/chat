@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Servar extends JFrame {
+public class Server extends JFrame {
     private static final int WINDOW_HEIGHT = 555;
     private static final int WINDOW_WIDTH = 563;
     private static final int WINDOW_POSX = 900;
@@ -14,7 +14,7 @@ public class Servar extends JFrame {
     JButton btnStart = new JButton("Start");
     JButton btnExit = new JButton("Stop");
     JTextArea textar = new JTextArea(10,20);
-    Servar(){
+    Server(){
         setLocation(WINDOW_POSX, WINDOW_POSY);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -28,6 +28,7 @@ public class Servar extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 isServerWorking=true;
                 textar.append("Server started\n");
+                setVisible(false);
             }
         });
         btnExit.addActionListener(new ActionListener() {
@@ -35,6 +36,7 @@ public class Servar extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 isServerWorking=false;
                 textar.append("Server stoped\n");
+                System.exit(0);
             }
         });
         add(panserver, BorderLayout.CENTER);

@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ChatClaient extends JFrame {
+public class ChatClient extends JFrame {
     private static final int WINDOW_HEIGHT = 555;
     private static final int WINDOW_WIDTH = 563;
     private static final int WINDOW_POSX = 900;
@@ -23,7 +23,7 @@ public class ChatClaient extends JFrame {
     JPasswordField arPass = new JPasswordField();
     JLabel lbIp = new JLabel("Введите IP: ");
     JTextField arIp = new JTextField();
-    JPanel panClaient = new JPanel(new GridLayout(2 ,4));
+    JPanel panClient = new JPanel(new GridLayout(2 ,4));
     JButton btnsend = new JButton("Send");
     JButton btnstart = new JButton("Start");
     JButton btnexit = new JButton("Exit");
@@ -32,7 +32,7 @@ public class ChatClaient extends JFrame {
     JTextArea arChat = new JTextArea();
     JTextField message = new JTextField();
     Server server;
-    ChatClaient(){
+    ChatClient(){
         String liststring[] = {"Grisha", "Masha", "Misha", "Sasha"};
         setLocation(WINDOW_POSX, WINDOW_POSY);
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -45,14 +45,14 @@ public class ChatClaient extends JFrame {
         jList.setVisibleRowCount(2);
         panbott.add(btnstart);
         panbott.add(btnexit);
-        panClaient.add(new JScrollPane(jList));
-        panClaient.add(lbLog);
-        panClaient.add(arLog);
-        panClaient.add(lbPass);
-        panClaient.add(arPass);
-        panClaient.add(lbIp);
-        panClaient.add(arIp);
-        panClaient.add(panbott);
+        panClient.add(new JScrollPane(jList));
+        panClient.add(lbLog);
+        panClient.add(arLog);
+        panClient.add(lbPass);
+        panClient.add(arPass);
+        panClient.add(lbIp);
+        panClient.add(arIp);
+        panClient.add(panbott);
         panChat.add(message);
         panChat.add(btnsend);
         message.addKeyListener(new KeyAdapter() {
@@ -91,7 +91,7 @@ public class ChatClaient extends JFrame {
                 message.setText("");
             }
         });
-        add(panClaient, BorderLayout.NORTH);
+        add(panClient, BorderLayout.NORTH);
         add(new JScrollPane(arChat), BorderLayout.CENTER);
         add(panChat, BorderLayout.SOUTH);
         setVisible(true);
