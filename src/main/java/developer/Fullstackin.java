@@ -1,4 +1,4 @@
 package developer;
 
-public interface Fullstackin {
+public interface Fullstackin extends Backend, Frontend {
 }

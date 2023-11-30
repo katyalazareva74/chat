@@ -6,11 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class ChatClient extends JFrame {
     private static final int WINDOW_HEIGHT = 555;
@@ -31,6 +26,7 @@ public class ChatClient extends JFrame {
     JPanel panChat = new JPanel(new GridLayout(1,2));
     JTextArea arChat = new JTextArea();
     JTextField message = new JTextField();
+    InputOutput saveload= new SaveLoad();
     Server server;
     ChatClient(){
         String liststring[] = {"Grisha", "Masha", "Misha", "Sasha"};
@@ -60,7 +56,7 @@ public class ChatClient extends JFrame {
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
                     arChat.append(jList.getSelectedValue()+": "+message.getText()+"\n");
-                    savechat(jList.getSelectedValue()+": "+message.getText()+"\n");
+                    saveload.savechat(jList.getSelectedValue()+": "+message.getText()+"\n");
                     message.setText("");
                 }
             }
@@ -68,13 +64,9 @@ public class ChatClient extends JFrame {
         btnstart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                server = new Server();
-                try {
-                    Thread.sleep(1500);
-                } catch (InterruptedException ex) {
-                    throw new RuntimeException(ex);
-                }
-                loadchat();
+               // server=new Server();
+                StringBuilder art=saveload.loadchat();
+                arChat.insert(art.toString(), 0);
             }
         });
         btnexit.addActionListener(new ActionListener() {
@@ -87,7 +79,7 @@ public class ChatClient extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 arChat.append(jList.getSelectedValue()+": "+message.getText()+"\n");
-                savechat(jList.getSelectedValue()+": "+message.getText()+"\n");
+                saveload.savechat(jList.getSelectedValue()+": "+message.getText()+"\n");
                 message.setText("");
             }
         });
@@ -95,23 +87,5 @@ public class ChatClient extends JFrame {
         add(new JScrollPane(arChat), BorderLayout.CENTER);
         add(panChat, BorderLayout.SOUTH);
         setVisible(true);
-    }
-    private void savechat(String str){
-        try(FileWriter fw = new FileWriter("data.txt", true)){
-            fw.write(str);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    private void loadchat(){
-        try(FileReader fr = new FileReader("data.txt"); Scanner sc = new Scanner(fr)) {
-            while (sc.hasNextLine()){
-                arChat.append(sc.nextLine()+"\n");
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

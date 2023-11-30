@@ -1,2 +1,5 @@
-package developer;public interface Frontend {
+package developer;
+
+public interface Frontend extends Developerin {
+    void front();
 }
